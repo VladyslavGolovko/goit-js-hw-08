@@ -29,7 +29,9 @@ function populateOnFormInput() {
   const savedMessage = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   if (savedMessage) {
-    refs.input.value = savedMessage.email;
-    refs.textarea.value = savedMessage.message;
+    refs.input.value = savedMessage.email || '';
+    refs.textarea.value = savedMessage.message || '';
+    feedbackFormData.email = refs.input.value;
+    feedbackFormData.message = refs.textarea.value;
   }
 }
