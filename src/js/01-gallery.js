@@ -2,49 +2,20 @@
 import { galleryItems } from './gallery-items';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import galleryCardTpl from '../templates/gallery-card.hbs';
 // Change code below this line
 const galleryContainer = document.querySelector('.gallery');
 
-const galleryCardMarkup = galleryItems.map(galleryCardTpl).join('');
-
-/*const galleryCardMarkup = galleryItems
+const galleryCardMarkup = galleryItems
   .map(
     item =>
-      `<div class="gallery__item">
-  <a class="gallery__link" href="${item.original}">
-    <img
-      class="gallery__image"
-      src='${item.preview}'
-      data-source='${item.original}'
-      alt='${item.description}'
-    />
-  </a>
-</div>`,
+      `<a class="gallery__item" href="${item.original}">
+  <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
+</a>`,
   )
-  .join('');*/
+  .join('');
 galleryContainer.insertAdjacentHTML('beforeend', galleryCardMarkup);
 
-let image = '';
-
-function createImgInModal(event) {
-  event.preventDefault();
-  image = basicLightbox.create(
-    `<div class="modal"><img src="${event.target.dataset.source}"></div>`,
-  );
-  image.show();
-}
-
-galleryContainer.addEventListener('click', createImgInModal);
-
-function onEscKeyPress(event) {
-  const ESC_KEY_CODE = 'Escape';
-  const isEscKey = event.code === ESC_KEY_CODE;
-
-  if (isEscKey) {
-    image.close();
-  }
-}
-galleryContainer.addEventListener('keydown', onEscKeyPress);
-
-console.log(galleryItems);
+let gallery = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
