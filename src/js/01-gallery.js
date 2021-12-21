@@ -1,9 +1,14 @@
 // Add imports above this line
 import { galleryItems } from './gallery-items';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+import galleryCardTpl from '../templates/gallery-card.hbs';
 // Change code below this line
 const galleryContainer = document.querySelector('.gallery');
 
-const galleryCardMarkup = galleryItems
+const galleryCardMarkup = galleryItems.map(galleryCardTpl).join('');
+
+/*const galleryCardMarkup = galleryItems
   .map(
     item =>
       `<div class="gallery__item">
@@ -17,7 +22,7 @@ const galleryCardMarkup = galleryItems
   </a>
 </div>`,
   )
-  .join('');
+  .join('');*/
 galleryContainer.insertAdjacentHTML('beforeend', galleryCardMarkup);
 
 let image = '';
